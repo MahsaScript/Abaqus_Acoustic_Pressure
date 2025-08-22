@@ -1,0 +1,1541 @@
+# -*- coding: mbcs -*-
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['Model-1'].PartFromInputFile(inputFileName='D:/temp/acou1.inp')
+mdb.models['Model-1'].rootAssembly.DatumCsysByThreePoints(coordSysType=
+    CYLINDRICAL, origin=(0.0, 0.0, 0.0), point1=(1.0, 0.0, 0.0), point2=(0.0, 
+    0.0, -1.0))
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='DUMMY-1', part=
+    mdb.models['Model-1'].parts['DUMMY'])
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='SHELLS-1-1', 
+    part=mdb.models['Model-1'].parts['SHELLS-1'])
+mdb.models['Model-1'].rootAssembly.Instance(dependent=ON, name='WATER-1-1', 
+    part=mdb.models['Model-1'].parts['WATER-1'])
+mdb.Model(modelType=STANDARD_EXPLICIT, name='Model')
+del mdb.models['Model-1']
+mdb.openStep('D:/temp/GHS-New2.stp', scaleFromFile=OFF)
+mdb.models['Model'].PartFromGeometryFile(combine=False, dimensionality=THREE_D, 
+    geometryFile=mdb.acis, name='GHS-New2', type=DEFORMABLE_BODY)
+mdb.models['Model'].Material(name='PLA')
+mdb.models['Model'].materials['PLA'].Elastic(table=((12000000000.0, 0.27), ))
+mdb.models['Model'].materials['PLA'].Density(table=((1210.0, ), ))
+mdb.models['Model'].Material(name='Material-2')
+mdb.models['Model'].materials['Material-2'].AcousticMedium(
+    acousticVolumetricDrag=ON, bulkTable=((141179.0, ), ), volumetricTable=((
+    343.0, 3000.0), ))
+mdb.ModelFromInputFile(inputFileName='D:/temp/acou1.inp', name='acou1')
+#* A nonzero bias parameter must be specified.
+#* A nonzero bias parameter must be specified.
+del mdb.models['Model']
+mdb.Job(activateLoadBalancing=False, atTime=None, contactPrint=OFF, 
+    description='', echoPrint=OFF, explicitPrecision=SINGLE, 
+    getMemoryFromAnalysis=True, historyPrint=OFF, memory=90, memoryUnits=
+    PERCENTAGE, model='acou1', modelPrint=OFF, multiprocessingMode=DEFAULT, 
+    name='Job-9090', nodalOutputPrecision=SINGLE, numCpus=1, numDomains=1, 
+    numGPUs=0, numThreadsPerMpiProcess=1, queue=None, resultsFormat=ODB, 
+    scratch='', type=ANALYSIS, userSubroutine='', waitHours=0, waitMinutes=0)
+mdb.jobs['Job-9090'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-9090']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'DESKTOP-QCIN5NE', 'handle': 0, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_WATER_EXTERIOR-ASSEMBLY_SHELLS_INTERIOR), ADJUSTMENT WAS SPECIFIED BUT NO NODE WAS ADJUSTED MORE THAN THE ADJUSTMENT DISTANCE = 2.22000E-16.', 
+    'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'D:\\temp\\Job-9090.odb', 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'NO STEP DEFINITION WAS FOUND', 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ABORTED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase failed due to errors', 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ERROR, {
+    'message': 'Analysis Input File Processor exited with an error - Please see the  Job-9090.dat file for possible error messages if the file exists.', 
+    'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(JOB_ABORTED, {
+    'message': 'Analysis Input File Processor exited with an error - Please see the  Job-9090.dat file for possible error messages if the file exists.', 
+    'jobName': 'Job-9090'})
+mdb.models['acou1'].FrequencyStep(description='Lanczos', maxEigen=3200.0, name=
+    'Step-1', previous='Initial', propertyEvaluationFrequency=3000.0, shift=
+    400.0)
+mdb.jobs['Job-9090'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-9090']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'DESKTOP-QCIN5NE', 'handle': 0, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_WATER_EXTERIOR-ASSEMBLY_SHELLS_INTERIOR), ADJUSTMENT WAS SPECIFIED BUT NO NODE WAS ADJUSTED MORE THAN THE ADJUSTMENT DISTANCE = 2.22000E-16.', 
+    'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'D:\\temp\\Job-9090.odb', 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'DESKTOP-QCIN5NE', 'handle': 5664, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(STEP, {'stepName': 'Lanczos', 
+    'phase': STANDARD_PHASE, 'stepId': 1, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'Job-9090', 'memory': 70.0})
+mdb.jobs['Job-9090']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 8118.0, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(MINIMUM_MEMORY, {'minimum_memory': 22.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'ONLY 3340 EIGENMODES WILL BE EXTRACTED BECAUSE THERE ARE NO MORE UNRESTRAINED DEGREES OF FREEDOM.', 
+    'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 2, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 3, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 4, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 5, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 6, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 7, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 8, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 9, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 10, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 11, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 12, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 13, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 14, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 15, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 16, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 17, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 18, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 19, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 20, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 21, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 22, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 23, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 24, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 25, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 26, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 27, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 28, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 29, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 30, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 31, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 32, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 33, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 34, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 35, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 36, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 37, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 38, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 39, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 40, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 41, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 42, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 43, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 44, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 45, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 46, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 47, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 48, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 49, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 50, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 51, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 52, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 53, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 54, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 55, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 56, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 57, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 58, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 59, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 60, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 61, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 62, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 63, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 64, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 65, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 66, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 67, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 68, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 69, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 70, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 71, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 72, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 73, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 74, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 75, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 76, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 77, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 78, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 79, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 80, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 81, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 82, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 83, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 84, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 85, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 86, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 87, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 88, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 89, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 90, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 91, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 92, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 93, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 94, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 95, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 96, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 97, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 98, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 99, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 100, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 101, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 102, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 103, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 104, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 105, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 106, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 107, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 108, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 109, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 110, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 111, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 112, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 113, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 114, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 115, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 116, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 117, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 118, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 119, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 120, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 121, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 122, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 123, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 124, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 125, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 126, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 127, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 128, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 129, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 130, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 131, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 132, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 133, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 134, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 135, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 136, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 137, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 138, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 139, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 140, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 141, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 142, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 143, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 144, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 145, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 146, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 147, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 148, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 149, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 150, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 151, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 152, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 153, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 154, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 155, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 156, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 157, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 158, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 159, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 160, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 161, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 162, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 163, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 164, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 165, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 166, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 167, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 168, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 169, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 170, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 171, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 172, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 173, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 174, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 175, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 176, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 177, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 178, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 179, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 180, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 181, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 182, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 183, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 184, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 185, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(STATUS, {'totalTime': 0.0, 'attempts': 1, 
+    'timeIncrement': 1e-36, 'increment': 1, 'stepTime': 1e-36, 'step': 1, 
+    'jobName': 'Job-9090', 'severe': 0, 'iterations': 0, 
+    'phase': STANDARD_PHASE, 'equilibrium': 0})
+mdb.jobs['Job-9090']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'ENERGY COMPUTATION FOR SINGULAR ACOUSTIC MODES IS NOT SUPPORTED IN STRUCTURAL-ACOUSTIC PROBLEMS BASED ON COUPLED MODES FORMULATION.', 
+    'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(JOB_COMPLETED, {
+    'time': 'Sun Jun  1 08:35:12 2025', 'jobName': 'Job-9090'})
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.models['acou1'].steps['Step-1'].setValues(blockSize=3, maxBlocks=8, 
+    numEigen=1, residualModeDof=(), residualModeRegion=(), residualModes=ON)
+mdb.ModelFromInputFile(inputFileName='D:/temp/acou2.inp', name='acou2')
+#* Invalid variables are specified in an output request.  An output request 
+#* cannot be created in a step where some variables are invalid.
+del mdb.models['acou1']
+mdb.Job(atTime=None, contactPrint=OFF, description='', echoPrint=OFF, 
+    explicitPrecision=SINGLE, getMemoryFromAnalysis=True, historyPrint=OFF, 
+    memory=90, memoryUnits=PERCENTAGE, model='acou2', modelPrint=OFF, 
+    multiprocessingMode=DEFAULT, name='Job-acco-2', nodalOutputPrecision=SINGLE
+    , numCpus=1, numGPUs=0, numThreadsPerMpiProcess=1, queue=None, 
+    resultsFormat=ODB, scratch='', type=ANALYSIS, userSubroutine='', waitHours=
+    0, waitMinutes=0)
+mdb.jobs['Job-acco-2'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-acco-2']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'DESKTOP-QCIN5NE', 'handle': 0, 'jobName': 'Job-acco-2'})
+mdb.jobs['Job-acco-2']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': '220 elements are missing property definitions. The elements have been identified in element set ErrElemMissingProperty.', 
+    'jobName': 'Job-acco-2'})
+mdb.jobs['Job-acco-2']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '2 elements are distorted. Either the isoparametric angles are out of the suggested limits or the triangular or tetrahedral quality measure is bad. The elements have been identified in element set WarnElemDistorted.', 
+    'jobName': 'Job-acco-2'})
+mdb.jobs['Job-acco-2']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'THIS MODEL INCLUDES USER-DEFINED ACOUSTIC INTERFACE (ASI) ELEMENTS. THESE ELEMENTS ARE NOT SUPPORTED WITH THE SIM ARCHITECTURE. PLEASE USE THE *TIE OPTION TO COUPLE STRUCTURAL AND ACOUSTIC REGIONS.', 
+    'jobName': 'Job-acco-2'})
+mdb.jobs['Job-acco-2']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'NO OUTPUT VARIABLES ARE SPECIFIED FOR *NODE OUTPUT. THIS OUTPUT REQUEST IS IGNORED', 
+    'jobName': 'Job-acco-2'})
+mdb.jobs['Job-acco-2']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST UR1 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-acco-2'})
+mdb.jobs['Job-acco-2']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST UR2 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-acco-2'})
+mdb.jobs['Job-acco-2']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST UR1 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-acco-2'})
+mdb.jobs['Job-acco-2']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST UR2 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-acco-2'})
+mdb.jobs['Job-acco-2']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST UR1 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-acco-2'})
+mdb.jobs['Job-acco-2']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST UR2 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-acco-2'})
+mdb.jobs['Job-acco-2']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST UR1 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-acco-2'})
+mdb.jobs['Job-acco-2']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST UR2 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-acco-2'})
+mdb.jobs['Job-acco-2']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'D:\\temp\\Job-acco-2.odb', 'jobName': 'Job-acco-2'})
+mdb.jobs['Job-acco-2']._Message(ABORTED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase failed due to errors', 'jobName': 'Job-acco-2'})
+mdb.jobs['Job-acco-2']._Message(ERROR, {
+    'message': 'Analysis Input File Processor exited with an error - Please see the  Job-acco-2.dat file for possible error messages if the file exists.', 
+    'jobName': 'Job-acco-2'})
+mdb.jobs['Job-acco-2']._Message(JOB_ABORTED, {
+    'message': 'Analysis Input File Processor exited with an error - Please see the  Job-acco-2.dat file for possible error messages if the file exists.', 
+    'jobName': 'Job-acco-2'})
+mdb.ModelFromInputFile(inputFileName='D:/temp/acou3.inp', name='acou3')
+del mdb.models['acou3']
+mdb.ModelFromInputFile(inputFileName='D:/temp/acou3.inp', name='acou3')
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+del mdb.jobs['Job-acco-2']
+del mdb.jobs['Job-9090']
+del mdb.models['acou3']
+mdb.Job(atTime=None, contactPrint=OFF, description='', echoPrint=OFF, 
+    explicitPrecision=SINGLE, getMemoryFromAnalysis=True, historyPrint=OFF, 
+    memory=90, memoryUnits=PERCENTAGE, model='acou2', modelPrint=OFF, 
+    multiprocessingMode=DEFAULT, name='Job-accou', nodalOutputPrecision=SINGLE, 
+    numCpus=1, numGPUs=0, numThreadsPerMpiProcess=1, queue=None, resultsFormat=
+    ODB, scratch='', type=ANALYSIS, userSubroutine='', waitHours=0, 
+    waitMinutes=0)
+mdb.jobs['Job-accou'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-accou']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'DESKTOP-QCIN5NE', 'handle': 0, 'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': '220 elements are missing property definitions. The elements have been identified in element set ErrElemMissingProperty.', 
+    'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': '2 elements are distorted. Either the isoparametric angles are out of the suggested limits or the triangular or tetrahedral quality measure is bad. The elements have been identified in element set WarnElemDistorted.', 
+    'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'THIS MODEL INCLUDES USER-DEFINED ACOUSTIC INTERFACE (ASI) ELEMENTS. THESE ELEMENTS ARE NOT SUPPORTED WITH THE SIM ARCHITECTURE. PLEASE USE THE *TIE OPTION TO COUPLE STRUCTURAL AND ACOUSTIC REGIONS.', 
+    'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'NO OUTPUT VARIABLES ARE SPECIFIED FOR *NODE OUTPUT. THIS OUTPUT REQUEST IS IGNORED', 
+    'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST UR1 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST UR2 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST UR1 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST UR2 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST UR1 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST UR2 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST UR1 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'OUTPUT REQUEST UR2 IS NOT VALID SINCE IT REQUESTS OUTPUT AT A DOF THAT IS NOT ACTIVE', 
+    'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\Windows\\system32\\Job-accou.odb', 'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(ABORTED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase failed due to errors', 'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(ERROR, {
+    'message': 'Analysis Input File Processor exited with an error - Please see the  Job-accou.dat file for possible error messages if the file exists.', 
+    'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(JOB_ABORTED, {
+    'message': 'Analysis Input File Processor exited with an error - Please see the  Job-accou.dat file for possible error messages if the file exists.', 
+    'jobName': 'Job-accou'})
+mdb.models['acou2'].rootAssembly.features['DUMMY'].suppress()
+mdb.jobs['Job-accou'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-accou']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'DESKTOP-QCIN5NE', 'handle': 0, 'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'in keyword *BOUNDARY, file "Job-accou.inp", line 33680: Unknown part instance node set DUMMY.ANALYTIC', 
+    'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'in keyword *NODEOUTPUT, file "Job-accou.inp", line 33701: Unknown part instance set DUMMY.ANALYTIC', 
+    'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(ERROR, {'phase': BATCHPRE_PHASE, 
+    'message': 'in keyword *NODEOUTPUT, file "Job-accou.inp", line 33735: Unknown part instance set DUMMY.ANALYTIC', 
+    'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(ABORTED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase failed due to errors', 'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(ERROR, {
+    'message': 'Analysis Input File Processor exited with an error - Please see the  Job-accou.dat file for possible error messages if the file exists.', 
+    'jobName': 'Job-accou'})
+mdb.jobs['Job-accou']._Message(JOB_ABORTED, {
+    'message': 'Analysis Input File Processor exited with an error - Please see the  Job-accou.dat file for possible error messages if the file exists.', 
+    'jobName': 'Job-accou'})
+mdb.JobFromInputFile(atTime=None, explicitPrecision=SINGLE, 
+    getMemoryFromAnalysis=True, inputFileName=
+    'C:\\Users\\mofid\\Downloads\\Job-9090.inp', memory=90, memoryUnits=
+    PERCENTAGE, multiprocessingMode=DEFAULT, name='Job-9090', 
+    nodalOutputPrecision=SINGLE, numCpus=1, numGPUs=0, numThreadsPerMpiProcess=
+    1, queue=None, resultsFormat=ODB, scratch='', type=ANALYSIS, 
+    userSubroutine='', waitHours=0, waitMinutes=0)
+mdb.jobs['Job-9090'].submit(consistencyChecking=OFF)
+mdb.jobs['Job-9090']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'DESKTOP-QCIN5NE', 'handle': 0, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_WATER_EXTERIOR-ASSEMBLY_SHELLS_INTERIOR), ADJUSTMENT WAS SPECIFIED BUT NO NODE WAS ADJUSTED MORE THAN THE ADJUSTMENT DISTANCE = 2.22000E-16.', 
+    'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\Windows\\system32\\Job-9090.odb', 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'DESKTOP-QCIN5NE', 'handle': 5388, 'jobName': 'Job-9090'})
+del mdb.jobs['Job-accou']
+mdb.jobs['Job-9090']._Message(STEP, {'stepName': 'Lanczos', 
+    'phase': STANDARD_PHASE, 'stepId': 1, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 0, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(MEMORY_ESTIMATE, {'phase': STANDARD_PHASE, 
+    'jobName': 'Job-9090', 'memory': 70.0})
+mdb.jobs['Job-9090']._Message(PHYSICAL_MEMORY, {'phase': STANDARD_PHASE, 
+    'physical_memory': 8118.0, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(MINIMUM_MEMORY, {'minimum_memory': 22.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'ONLY 3340 EIGENMODES WILL BE EXTRACTED BECAUSE THERE ARE NO MORE UNRESTRAINED DEGREES OF FREEDOM.', 
+    'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 1, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 2, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 3, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 4, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 5, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 6, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 7, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 8, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 9, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 10, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 11, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 12, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 13, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 14, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 15, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 16, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 17, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 18, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 19, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 20, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 21, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 22, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 23, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 24, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 25, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 26, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 27, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 28, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 29, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 30, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 31, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 32, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 33, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 34, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 35, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 36, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 37, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 38, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 39, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 40, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 41, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 42, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 43, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 44, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 45, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 46, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 47, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 48, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 49, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 50, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 51, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 52, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 53, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 54, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 55, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 56, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 57, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 58, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 59, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 60, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 61, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 62, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 63, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 64, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 65, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 66, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 67, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 68, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 69, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 70, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 71, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 72, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 73, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 74, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 75, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 76, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 77, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 78, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 79, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 80, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 81, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 82, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 83, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 84, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 85, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 86, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 87, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 88, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 89, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 90, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 91, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 92, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 93, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 94, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 95, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 96, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 97, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 98, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 99, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 100, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 101, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 102, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 103, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 104, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 105, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 106, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 107, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 108, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 109, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 110, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 111, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 112, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 113, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 114, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 115, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 116, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 117, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 118, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 119, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 120, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 121, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 122, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 123, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 124, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 125, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 126, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 127, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 128, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 129, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 130, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 131, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 132, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 133, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 134, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 135, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 136, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 137, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 138, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 139, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 140, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 141, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 142, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 143, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 144, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 145, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 146, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 147, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 148, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 149, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 150, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 151, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 152, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 153, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 154, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 155, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 156, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 157, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 158, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 159, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 160, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 161, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 162, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 163, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 164, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 165, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 166, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 167, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 168, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 169, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 170, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 171, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 172, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 173, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 174, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 175, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 176, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 177, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 178, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 179, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 180, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 181, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 182, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 183, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 184, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 'step': 0, 
+    'frame': 185, 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(STATUS, {'totalTime': 0.0, 'attempts': 1, 
+    'timeIncrement': 1e-36, 'increment': 1, 'stepTime': 1e-36, 'step': 1, 
+    'jobName': 'Job-9090', 'severe': 0, 'iterations': 0, 
+    'phase': STANDARD_PHASE, 'equilibrium': 0})
+mdb.jobs['Job-9090']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'ENERGY COMPUTATION FOR SINGULAR ACOUSTIC MODES IS NOT SUPPORTED IN STRUCTURAL-ACOUSTIC PROBLEMS BASED ON COUPLED MODES FORMULATION.', 
+    'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(END_STEP, {'phase': STANDARD_PHASE, 'stepId': 1, 
+    'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'Job-9090'})
+mdb.jobs['Job-9090']._Message(JOB_COMPLETED, {
+    'time': 'Thu Jun 12 14:16:04 2025', 'jobName': 'Job-9090'})
+mdb.models['acou2'].fieldOutputRequests['F-Output-2'].setValues(variables=('U', 
+    'POR', 'ACV', 'GRADP', 'INFC', 'INFN', 'INFR', 'INTEN', 'PINF'))
+mdb.models['acou2'].fieldOutputRequests['F-Output-3'].setValues(variables=('U', 
+    'POR', 'ACV', 'GRADP', 'INFC', 'INFN', 'INFR', 'INTEN', 'PINF'))
+mdb.models['acou2'].historyOutputRequests['H-Output-1'].setValues(variables=(
+    'U1', 'U2', 'U3', 'UR1', 'UR2', 'UR3', 'POR', 'ACV', 'GRADP', 'INFC', 
+    'INFN', 'INFR', 'INTEN', 'PINF'))
+mdb.models['acou2'].historyOutputRequests['H-Output-2'].setValues(variables=(
+    'U1', 'U2', 'U3', 'UR1', 'UR2', 'UR3', 'POR', 'ACV', 'GRADP', 'INFC', 
+    'INFN', 'INFR', 'INTEN', 'PINF'))
+mdb.models['acou2'].historyOutputRequests['H-Output-3'].setValues(variables=(
+    'U1', 'U2', 'U3', 'UR1', 'UR2', 'UR3', 'POR', 'ACV', 'GRADP', 'INFC', 
+    'INFN', 'INFR', 'INTEN', 'PINF'))
+mdb.models['acou2'].historyOutputRequests['H-Output-4'].setValues(variables=(
+    'U1', 'U2', 'U3', 'UR1', 'UR2', 'UR3', 'POR', 'ACV', 'GRADP', 'INFC', 
+    'INFN', 'INFR', 'INTEN', 'PINF'))
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.saveAs(pathName='C:/Users/mofid/Downloads/abaqus-accou.cae')
+mdb.ModelFromInputFile(inputFileName='C:/Users/mofid/Downloads/Job-9090.inp', 
+    name='Job-9090')
+del mdb.models['acou2']
+mdb.models['Job-9090'].fieldOutputRequests['F-Output-1'].setValues(variables=(
+    'U', 'POR'))
+mdb.models['Job-9090'].HistoryOutputRequest(createStepName='Step-1', name=
+    'H-Output-1', variables=('ALLKE', 'ALLSE', 'SNE', 'KE', 'T'))
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.jobs.changeKey(fromName='Job-9090', toName='acoustic_pressure')
+# Save by mofid on 2025_08_23-01.17.18; build 2023 2022_09_28-21.41.55 183150
+from part import *
+from material import *
+from section import *
+from assembly import *
+from step import *
+from interaction import *
+from load import *
+from mesh import *
+from optimization import *
+from job import *
+from sketch import *
+from visualization import *
+from connectorBehavior import *
+mdb.jobs['acoustic_pressure'].submit(consistencyChecking=OFF)
+mdb.jobs['acoustic_pressure']._Message(STARTED, {'phase': BATCHPRE_PHASE, 
+    'clientHost': 'DESKTOP-QCIN5NE', 'handle': 0, 
+    'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(WARNING, {'phase': BATCHPRE_PHASE, 
+    'message': 'FOR *TIE PAIR (ASSEMBLY_WATER_EXTERIOR-ASSEMBLY_SHELLS_INTERIOR), ADJUSTMENT WAS SPECIFIED BUT NO NODE WAS ADJUSTED MORE THAN THE ADJUSTMENT DISTANCE = 2.22000E-16.', 
+    'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FILE, {'phase': BATCHPRE_PHASE, 
+    'file': 'C:\\Users\\mofid\\Downloads\\acoustic_pressure.odb', 
+    'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(COMPLETED, {'phase': BATCHPRE_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(STARTED, {'phase': STANDARD_PHASE, 
+    'clientHost': 'DESKTOP-QCIN5NE', 'handle': 2568, 
+    'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(STEP, {'stepName': 'Lanczos', 
+    'phase': STANDARD_PHASE, 'stepId': 1, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 0, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(MEMORY_ESTIMATE, {
+    'phase': STANDARD_PHASE, 'jobName': 'acoustic_pressure', 'memory': 70.0})
+mdb.jobs['acoustic_pressure']._Message(PHYSICAL_MEMORY, {
+    'phase': STANDARD_PHASE, 'physical_memory': 8118.0, 
+    'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(MINIMUM_MEMORY, {'minimum_memory': 22.0, 
+    'phase': STANDARD_PHASE, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'ONLY 3340 EIGENMODES WILL BE EXTRACTED BECAUSE THERE ARE NO MORE UNRESTRAINED DEGREES OF FREEDOM.', 
+    'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 1, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 2, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 3, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 4, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 5, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 6, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 7, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 8, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 9, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 10, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 11, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 12, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 13, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 14, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 15, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 16, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 17, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 18, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 19, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 20, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 21, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 22, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 23, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 24, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 25, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 26, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 27, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 28, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 29, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 30, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 31, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 32, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 33, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 34, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 35, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 36, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 37, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 38, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 39, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 40, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 41, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 42, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 43, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 44, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 45, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 46, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 47, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 48, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 49, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 50, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 51, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 52, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 53, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 54, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 55, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 56, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 57, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 58, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 59, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 60, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 61, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 62, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 63, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 64, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 65, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 66, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 67, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 68, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 69, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 70, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 71, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 72, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 73, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 74, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 75, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 76, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 77, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 78, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 79, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 80, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 81, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 82, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 83, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 84, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 85, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 86, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 87, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 88, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 89, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 90, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 91, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 92, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 93, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 94, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 95, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 96, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 97, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 98, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 99, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 100, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 101, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 102, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 103, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 104, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 105, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 106, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 107, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 108, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 109, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 110, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 111, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 112, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 113, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 114, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 115, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 116, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 117, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 118, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 119, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 120, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 121, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 122, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 123, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 124, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 125, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 126, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 127, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 128, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 129, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 130, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 131, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 132, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 133, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 134, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 135, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 136, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 137, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 138, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 139, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 140, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 141, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 142, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 143, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 144, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 145, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 146, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 147, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 148, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 149, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 150, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 151, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 152, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 153, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 154, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 155, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 156, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 157, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 158, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 159, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 160, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 161, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 162, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 163, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 164, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 165, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 166, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 167, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 168, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 169, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 170, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 171, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 172, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 173, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 174, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 175, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 176, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 177, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 178, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 179, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 180, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 181, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 182, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 183, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 184, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(ODB_FRAME, {'phase': STANDARD_PHASE, 
+    'step': 0, 'frame': 185, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(STATUS, {'totalTime': 0.0, 
+    'attempts': 1, 'timeIncrement': 1e-36, 'increment': 1, 'stepTime': 1e-36, 
+    'step': 1, 'jobName': 'acoustic_pressure', 'severe': 0, 'iterations': 0, 
+    'phase': STANDARD_PHASE, 'equilibrium': 0})
+mdb.jobs['acoustic_pressure']._Message(WARNING, {'phase': STANDARD_PHASE, 
+    'message': 'ENERGY COMPUTATION FOR SINGULAR ACOUSTIC MODES IS NOT SUPPORTED IN STRUCTURAL-ACOUSTIC PROBLEMS BASED ON COUPLED MODES FORMULATION.', 
+    'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(END_STEP, {'phase': STANDARD_PHASE, 
+    'stepId': 1, 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(COMPLETED, {'phase': STANDARD_PHASE, 
+    'message': 'Analysis phase complete', 'jobName': 'acoustic_pressure'})
+mdb.jobs['acoustic_pressure']._Message(JOB_COMPLETED, {
+    'time': 'Sat Aug 23 01:19:42 2025', 'jobName': 'acoustic_pressure'})
+# Save by mofid on 2025_08_23-01.21.05; build 2023 2022_09_28-21.41.55 183150
