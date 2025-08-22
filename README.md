@@ -1,1 +1,1 @@
-![screenshot](Acoustic Pressure.PNG)
+![screenshot](Acoustic Pressure.png)
